@@ -1,0 +1,351 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+A:link {
+    text-decoration: none;
+    color: white;
+}
+
+A:visited {
+    text-decoration: none;
+    color: white;
+}
+
+A:active {
+    text-decoration: none;
+    color: white;
+}
+
+:active,
+:hover,
+:focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+body {
+    width: 100%;
+    height: 3000px;
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: 'BloggerSans';
+    src: local('Font Name'),
+        url(/fonts/BloggerSans.ttf);
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: local('Font Name'),
+        url(/fonts/Raleway.ttf);
+}
+
+
+
+/* header css */
+
+header {
+    width: 100%;
+    background-color: #19191a;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.header_conteiner {
+    position: absolute;
+    width: 1200px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    position: relative;
+    width: 140px;
+    height: auto;
+}
+
+.header_menu {
+    position: relative;
+    width: 879px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.menu {
+    display: flex;
+    list-style-type: none;
+    font-size: 22px;
+    margin-right: 30px;
+    font-family: BloggerSans;
+}
+
+.menu li {
+    margin-left: 15px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu li:hover {
+    color: #9db800;
+}
+
+.authBt {
+    position: relative;
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid #9db800;
+    padding-left: 25px;
+
+}
+
+.authBt button {
+    background-color: initial;
+    color: white;
+    border: none;
+    font-size: 20px;
+    font-family: BloggerSans;
+    transition: 0.2s;
+    letter-spacing: 0.4px;
+}
+
+.authBt button:hover {
+    color: #9db800;
+}
+
+
+/*about us css */
+
+.aboutUs {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contentAbout {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
+.text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.abilites {
+    width: 45%;
+    height: 200px;
+    color: white;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid #9db800;
+}
+
+.abilites p {
+    font-family: Raleway;
+    text-align: start;
+    margin: 20px;
+}
+
+.whyWe {
+    width: 45%;
+    height: 200px;
+    color: white;
+    font-size: 18px;
+    font-family: Raleway;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.textUs {
+    font-family: Raleway;
+    background-color: initial;
+    border: 2px solid #9db800;
+    font-size: 20px;
+    color: white;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #9db800;
+    transition: 0.15s;
+}
+
+.textUs:hover {
+    color: #9db800;
+    background-color: initial;
+
+}
+
+/* services css */
+
+.services {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 540px;
+    width: 100%;
+}
+
+.serviceText {
+    position: relative;
+    left: 300px;
+    height: auto;
+    width: 800px;
+    font-family: Raleway;
+    font-weight: 200;
+    font-size: 35px;
+}
+
+.moreServices {
+    position: absolute;
+    border: 2px solid #9db800;
+    background-color: #9db800;
+    font-size: 30px;
+    font-family: BloggerSans;
+    padding: 8px;
+    padding-left: 18px;
+    padding-right: 18px;
+    right: 400px;
+    color: white;
+    transition: 0.2s;
+}
+
+.moreServices:hover {
+    background-color: initial;
+    color: #9db800;
+
+}
+
+/* uslugi css */
+
+.uslugi {
+    height: 550px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.item {
+    position: relative;
+    width: 478px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+}
+
+.item p {
+    position: absolute;
+    color: white;
+    bottom: 150px;
+    font-family: BloggerSans;
+    font-size: 34px;
+    font-weight: 400;
+}
+
+/* countact us css */
+
+.contactUs {
+    background-color: #19191a;
+    position: relative;
+    height: 320px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.contactUs p {
+    color: white;
+    font-family: BloggerSans;
+    margin-top: 10px;
+    font-size: 36px;
+}
+
+/*stuff css*/
+
+.stuff {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 700px;
+    width: 100%;
+}
+
+.stuffText {
+    position: relative;
+    height: 120px;
+    width: 600px;
+    font-family: Raleway;
+    font-weight: 200;
+    font-size: 35px;
+    margin-top: 60px;
+    left: -300px;
+}
+
+.stuffIMG {
+    position: relative;
+    display: flex;
+    width: 1200px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.tipok {
+    overflow: hidden;
+    width: 350px;
+    height: 350px;
+}
+
+.tipok div {
+    margin-top: 35px;
+    width: 350px;
+    font-family: Raleway;
+    font-size: 18px;
+    position: absolute;
+    color: #9db800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.tipName{
+    font-size: 28px;
+    font-weight: 800px;
+    font-family: BloggerSans;
+    color: #000000;
+}
