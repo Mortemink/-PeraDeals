@@ -146,7 +146,7 @@ app.route('/login')
         passport.authenticate("local", {
             successRedirect: "/?status=successful_login",
             failureRedirect: "/login?status=failed_login"
-        }, err => { if (err) console.error(err); }));
+        }), (req, res) => {});
 //
 
 // NEED BE LOGGED
