@@ -31,7 +31,6 @@ A:active {
 
 body {
     width: 100%;
-    height: 3000px;
     overflow-x: hidden;
 }
 
@@ -348,4 +347,40 @@ header {
     font-weight: 800px;
     font-family: BloggerSans;
     color: #000000;
+}
+
+/* login css*/
+
+.loginMain{
+    width: 100%;
+    height: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.loginForm{
+    width: 450px;
+    height: 500px;
+    border: 2px solid #9db800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.namming{
+    font-size: 40px;
+    font-family: Raleway;
+    font-weight: 900;
+    margin-top: 10px;
+}
+
+.formInfo{
+    height: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
