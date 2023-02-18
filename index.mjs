@@ -26,26 +26,34 @@ const __dirname = path.dirname(__filename);
 /* ////////////////////////// */
 
 const app = express();
-app.set('trust proxy', true)
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.set('trust proxy', true)
 app.use(session({
     secret: process.env.SECRET || 'ГАВНО',
     resave: false,
     saveUninitialized: false,
     httpOnly: true,
+    cookie: {
+        secure: true,
+        maxAge: 1000 * 60 * 60 * 24 * 1
+    },
     secure: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(methodOverride('_method'));
 initialize(
     passport,
     email => users.findOne({email: email}),
     id => users.findOne({_id: id}),
-)
+);
+
+app.use(methodOverride('_method'));
 
 const PORT = process.env.PORT || 3000;
 
@@ -72,7 +80,6 @@ function start() {
     }
 }
 
-
 start();
 
 
@@ -84,8 +91,7 @@ start();
 app.route('/')
     .get(async (req, res) => {
         try {
-            console.log(req.ip);
-            res.render('index');
+            res.render('index', { services: await services.find() });
         } catch (e) {
             throwError(e, req, res);
         }
@@ -143,8 +149,7 @@ app.route('/login')
     .post(checkNotAuthenticated, passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/login?status=failed_login"
-    }), (req, res) => {
-    });
+    }, err => { if (err) console.error(err); } ));
 
 app.route('/admin_panel')
     .get(checkAdmin, async (req, res) => {

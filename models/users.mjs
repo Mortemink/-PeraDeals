@@ -17,6 +17,12 @@ const _users = new mongoose.Schema({
         required: true,
         unique: false
     },
+    accountType: {
+        type: Number,
+        required: true,
+        unique: false,
+        default: 0
+    },
     created: {
         type: Date,
         required: true,

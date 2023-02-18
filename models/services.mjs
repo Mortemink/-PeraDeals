@@ -20,7 +20,12 @@ const _services = new mongoose.Schema({
         unique: false,
         default: 0
     },
-    created: {
+    createdBy: {
+        type: String,
+        required: true,
+        unique: false
+    },
+    createdDate: {
         type: Date,
         required: true,
         unique: false
