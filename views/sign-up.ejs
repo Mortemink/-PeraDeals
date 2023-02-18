@@ -1,33 +1,34 @@
 <%- include('partials/header.ejs') %>
 
     <main>
-        <form class="signupForm">
-            <p class="namming">Войти в аккаунт</p>
+        <form class="signupForm" action="/sign_up" method="POST">
+            <p class="namming">Зарегистрироваться</p>
             <div class="sformInfo">
                 <div>
                     <p>Имя</p>
-                    <input>
+                    <input name="firstname">
                 </div>
                 <div>
                     <p>Фамилия</p>
-                    <input>
+                    <input name="lastname">
                 </div>
                 <div>
                     <p>Email</p>
-                    <input>
+                    <input name="email">
                 </div>
                 <div>
                     <p>Пароль</p>
-                    <input>
+                    <input name="password">
                 </div>
 
             </div>
-            <button type="submit" >Войти</button>
+            <button type="submit" >Подтвердить</button>
             <p style="font-family: Raleway; position: absolute; bottom: 20px; font-size: 18px;"> Уже есть аккаунт?<a href="login" style="color: #9db800;"> Войди. </a></p>
         </form>
         <div class="alert">
-        <p style=" color: red;"></p>
-        <p style="color: #9db800;"></p>
+            <% if (status === 'existing_email') { %>
+                <p style=" color: red;">Аккаунт с данным email уже существует</p>
+            <% } %>
     </div>
     </main>
 

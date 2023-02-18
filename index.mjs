@@ -14,6 +14,7 @@ import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 import {initialize} from "./passport-config.mjs";
 import session from "express-session";
+import mongoStore from "connect-mongo";
 import methodOverride from "method-override";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -35,14 +36,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('trust proxy', true)
 app.use(session({
+    store: mongoStore.create({
+        mongoUrl: "mongodb://localhost:27017/STO",
+        ttl: 2 * 24 * 60 * 60
+    }),
     secret: process.env.SECRET || 'ГАВНО',
     resave: false,
     saveUninitialized: false,
     httpOnly: true,
-    cookie: {
-        secure: true,
-        maxAge: 1000 * 60 * 60 * 24 * 1
-    },
     secure: true
 }));
 app.use(passport.initialize());
@@ -63,7 +64,6 @@ function start() {
         const DB = `mongodb://127.0.0.1:27017/STO`;
         mongoose.connect(DB, {
             useNewUrlParser: true,
-            autoIndex: false,
             useUnifiedTopology: true
         }, (e) => {
             if (e)
@@ -88,36 +88,47 @@ start();
 /* ЗАПРОСЫ */
 /* /////// */
 
+// FOR ALL
 app.route('/')
     .get(async (req, res) => {
         try {
-            res.render('index', { services: await services.find() });
+            res.render('index', {
+                user: await getUser(req),
+                services: await services.find()
+            });
         } catch (e) {
             throwError(e, req, res);
         }
     });
 
 app.route('/services')
-    .get((req, res) => {
-        res.render('services', {services: services.find()});
+    .get(async (req, res) => {
+        res.render('services', {
+            user: await getUser(req),
+            services: services.find()
+        });
     });
+//
 
+// SIGN UP AND LOG IN
 app.route('/sign_up')
     .get(checkNotAuthenticated, async (req, res) => {
-        res.render('sign-up', {status: false});
+        res.render('sign-up', { status: req.query.status });
     })
     .post(checkNotAuthenticated, async (req, res) => {
         try {
             if (await users.findOne({email: req.body.email})) {
-                return res.render('sign-up', {status: 'Данный email уже занят'});
+                return res.redirect('/sign-up?status=existing_email');
             } else {
-                await
-                    new users({
-                        name: req.body.name,
-                        email: req.body.email,
-                        password: await bcrypt.hash(req.body.password, 8),
-                        created: Date.now()
-                    })
+                const HashedPassword = await bcrypt.hash(req.body.password, 8);
+                await new users({
+                            firstname: req.body.firstname,
+                            lastname: req.body.lastname,
+                            email: req.body.email,
+                            password: HashedPassword,
+                            accountType: 0,
+                            created: Date.now()
+                        })
                         .save();
 
                 return res.redirect('/login?status=successful_registered');
@@ -129,32 +140,46 @@ app.route('/sign_up')
 
 app.route('/login')
     .get(checkNotAuthenticated, (req, res) => {
-        let status = req.query.status;
-        switch (true) {
-            case (status === 'failed_login'): {
-                status = 'Неверный email и/или пароль';
-                break;
-            }
-            case (status === 'successful_registered'): {
-                status = 'Регистрация произошла успешно!';
-                break;
-            }
-            default: {
-                status = false;
-                break;
-            }
-        }
-        res.render('login', {status})
+        res.render('login', {status: req.query.status})
     })
-    .post(checkNotAuthenticated, passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/login?status=failed_login"
-    }, err => { if (err) console.error(err); } ));
+    .post(checkNotAuthenticated,
+        passport.authenticate("local", {
+            successRedirect: "/",
+            failureRedirect: "/login?status=failed_login"
+        }),
+        (req, res) => {
+        });
+//
 
+// NEED BE LOGGED
+app.route('/profile')
+    .get(checkAuthenticated, async (req, res) => {
+        try {
+            res.render('profile', {
+                user: await getUser(req)
+            });
+        } catch (e) {
+            throwError(e, req, res);
+        }
+    })
+    .delete(checkAuthenticated, (req, res) => {
+        try {
+            req.logout();
+            res.redirect('/');
+        } catch (e) {
+            throwError(e, req, res);
+        }
+    })
+//
+
+// ADMIN STUFF
 app.route('/admin_panel')
     .get(checkAdmin, async (req, res) => {
         try {
-            res.render('admin-panel', {services: await services.find()});
+            res.render('admin-panel', {
+                user: await getUser(req),
+                services: await services.find()
+            });
         } catch (e) {
             throwError(e, req, res);
         }
@@ -163,7 +188,10 @@ app.route('/admin_panel')
 app.route('/admin_panel/:id')
     .get(checkAdmin, async (req, res) => {
         try {
-            res.render('admin-service', {services: await services.findOne({_id: req.params.id})});
+            res.render('admin-service', {
+                user: await getUser(req),
+                services: await services.findOne({_id: req.params.id})
+            });
         } catch (e) {
             throwError(e, req, res);
         }
@@ -203,31 +231,56 @@ app.route('/admin_panel/:id')
             throwError(e, req, res);
         }
     });
-
+//
 
 
 /* /////// */
 /* ФУНКЦИИ */
 /* /////// */
 
+async function getUser(req) {
+    let user = {};
+    try {
+        user = await req.user;
+    } catch (e) {
+        throwError(e, req, res);
+    }
+
+    return {
+        logged: req.isAuthenticated(),
+        firstname: user.firstname ?? false,
+        lastname: user.lastname ?? false,
+        email: user.email ?? false,
+        accountType: user.accountType ?? false
+    }
+}
+
 function throwError(err, req, res) {
     console.error(err);
-    return res.redirect('/');
+    return res.redirect('/?error=true');
 }
 
 async function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        return res.redirect('/');
+        return res.redirect('/?error=true');
     }
     next();
 }
 
+async function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    }
+
+    return res.redirect('/?error=true');
+}
+
 async function checkAdmin(req, res, next) {
     try {
-        if (await req.user !== undefined) {
+        if (req.isAuthenticated && await req.user.accountType >= 1) {
             next();
         } else {
-            return res.redirect('/');
+            return res.redirect('/?error=true');
         }
     } catch (e) {
         throwError(e, req, res);

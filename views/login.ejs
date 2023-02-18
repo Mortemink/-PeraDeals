@@ -1,24 +1,27 @@
 <%- include('partials/header.ejs') %>
 
     <main class="loginMain">
-        <form class="loginForm">
+        <form class="loginForm" action="/login" method="POST">
             <p class="namming">Войти в аккаунт</p>
             <div class="formInfo">
                 <div>
                     <p>Email</p>
-                    <input>
+                    <input name="email">
                 </div>
                 <div>
                     <p>Пароль</p>
-                    <input>
+                    <input name="password">
                 </div>
             </div>
             <button type="submit" >Войти</button>
             <p style="font-family: Raleway; position: absolute; bottom: 20px; font-size: 18px;"> Ещё нет аккаунта? <a href="sign_up" style="color: #9db800;">Создайте его. </a></p>
         </form>
         <div class="alert">
-        <p style=" color: red;"></p>
-        <p style="color: #9db800;"></p>
+            <% if (status === 'failed_login') { %>
+                <p style=" color: red;">Неверный email и/или пароль</p>
+            <% } else if (status === 'successful_registered') { %>
+                <p style="color: #9db800;">Регистрация произошла успешно!</p>
+            <% } %>
     </div>
     </main>
 

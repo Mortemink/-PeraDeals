@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "dev": "npm install && nodemon index.mjs",
+    "dev": "nodemon index.mjs",
     "production": "node index.mjs"
   },
   "author": "",
@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
+    "connect-mongo": "^4.6.0",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
@@ -19,7 +20,8 @@
     "mongoose": "^6.9.2",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^7.1.2"
+    "passport-local-mongoose": "^7.1.2",
+    "sessionstore": "^0.4.8"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
