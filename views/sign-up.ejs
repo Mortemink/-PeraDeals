@@ -1,3 +1,35 @@
 <%- include('partials/header.ejs') %>
 
-<%- include('partials/footer.ejs') %>
+    <main>
+        <form class="signupForm">
+            <p class="namming">Войти в аккаунт</p>
+            <div class="sformInfo">
+                <div>
+                    <p>Имя</p>
+                    <input>
+                </div>
+                <div>
+                    <p>Фамилия</p>
+                    <input>
+                </div>
+                <div>
+                    <p>Email</p>
+                    <input>
+                </div>
+                <div>
+                    <p>Пароль</p>
+                    <input>
+                </div>
+
+            </div>
+            <button type="submit" >Войти</button>
+            <p style="font-family: Raleway; position: absolute; bottom: 20px; font-size: 18px;"> Уже есть аккаунт?<a href="login" style="color: #9db800;"> Войди. </a></p>
+        </form>
+        <div class="alert">
+        <p style=" color: red;"></p>
+        <p style="color: #9db800;"></p>
+    </div>
+    </main>
+
+
+    <%- include('partials/footer.ejs') %>
