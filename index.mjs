@@ -248,10 +248,10 @@ async function getUser(req) {
 
     return {
         logged: req.isAuthenticated(),
-        firstname: user.firstname ?? false,
-        lastname: user.lastname ?? false,
-        email: user.email ?? false,
-        accountType: user.accountType ?? false
+        firstname: user?.firstname,
+        lastname: user?.lastname,
+        email: user?.email,
+        accountType: user?.accountType
     }
 }
 
