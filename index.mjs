@@ -73,7 +73,7 @@ function start() {
             else {
                 console.log('Сервер успешно подключился к базе данных!');
                 app.listen(PORT, () => {
-                    console.log(`Ссылка на сайт: http://127.0.0.1:${PORT}`);
+                    console.log(`Ссылка на сайт: http://localhost:${PORT}`);
                 });
             }
         })
