@@ -1,5 +1,3 @@
-'use strict'
-
 /* /////// */
 /* ИМПОРТЫ */
 /* /////// */
@@ -50,12 +48,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-initialize(
-    passport,
-    email => users.findOne({email: email}),
-    id => users.findOne({_id: id}),
-);
-
 app.use(methodOverride('_method'));
 
 const PORT = process.env.PORT || 3000;
@@ -83,6 +75,12 @@ function start() {
 }
 
 start();
+
+initialize(
+    passport,
+    email => users.findOne({email: email}),
+    id => users.findOne({_id: id}),
+);
 
 
 
@@ -146,11 +144,9 @@ app.route('/login')
     })
     .post(checkNotAuthenticated,
         passport.authenticate("local", {
-            successRedirect: "/",
+            successRedirect: "/?status=successful_login",
             failureRedirect: "/login?status=failed_login"
-        }),
-        (req, res) => {
-        });
+        }, err => { if (err) console.error(err); }));
 //
 
 // NEED BE LOGGED
@@ -163,15 +159,7 @@ app.route('/profile')
         } catch (e) {
             throwError(e, req, res);
         }
-    })
-    .delete(checkAuthenticated, (req, res) => {
-        try {
-            req.logout();
-            res.redirect('/');
-        } catch (e) {
-            throwError(e, req, res);
-        }
-    })
+    });
 //
 
 // ADMIN STUFF
@@ -235,6 +223,19 @@ app.route('/admin_panel/:id')
     });
 //
 
+// OTHER
+app.delete('/logout', checkAuthenticated, async (req, res) => {
+    try {
+        req.logOut(null, done => {
+            if (done) console.log(done);
+            res.redirect('/');
+        });
+    } catch (e) {
+        throwError(e, req, res);
+    }
+})
+//
+
 
 /* /////// */
 /* ФУНКЦИИ */
@@ -246,10 +247,10 @@ async function getUser(req, res) {
         if (user)
             return {
                 logged: req.isAuthenticated(),
-                firstname: user?.firstname,
-                lastname: user?.lastname,
-                email: user?.email,
-                accountType: user?.accountType
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                accountType: user.accountType
             }
         else {
             return {
@@ -274,21 +275,22 @@ async function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return res.redirect('/?error=true');
     }
+
     next();
 }
 
 async function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        next();
+       return next();
     }
 
-    return res.redirect('/?error=true');
+    res.redirect('/?error=true');
 }
 
 async function checkAdmin(req, res, next) {
     try {
-        if (req.isAuthenticated && await req.user.accountType >= 1) {
-            next();
+        if (req.isAuthenticated() && await req.user.accountType >= 1) {
+            return next();
         } else {
             return res.redirect('/?error=true');
         }
