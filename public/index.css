@@ -349,6 +349,63 @@ header {
     color: #000000;
 }
 
+/*footer css*/
+footer{
+    width: 100%;
+    background-color: #19191a;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.contacts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact{
+    color: #9db800;
+    font-size: 40px;
+    font-family: Raleway;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.contactsInfo{
+    margin-top: 30px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contactsInfo p {
+    font-family:BloggerSans ;
+ color: white;
+ font-size: 20px;
+ margin-top: 5px;
+}
+
+.contactsInfo p span{
+    color: #9db800;
+}
+
+.socials{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.socialsIMG img {
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    
+}
+
 /* login css*/
 
 .loginForm {
