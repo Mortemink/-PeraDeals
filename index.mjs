@@ -1,3 +1,5 @@
+'use strict'
+
 /* /////// */
 /* ИМПОРТЫ */
 /* /////// */
@@ -37,7 +39,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('trust proxy', true)
 app.use(session({
     store: mongoStore.create({
-        mongoUrl: "mongodb://localhost:27017/STO",
+        mongoUrl: "mongodb://127.0.0.1:27017/STO",
         ttl: 2 * 24 * 60 * 60
     }),
     secret: process.env.SECRET || 'ГАВНО',
@@ -71,7 +73,7 @@ function start() {
             else {
                 console.log('Сервер успешно подключился к базе данных!');
                 app.listen(PORT, () => {
-                    console.log(`Ссылка на сайт: http://localhost:${PORT}`);
+                    console.log(`Ссылка на сайт: http://127.0.0.1:${PORT}`);
                 });
             }
         })
@@ -93,7 +95,7 @@ app.route('/')
     .get(async (req, res) => {
         try {
             res.render('index', {
-                user: await getUser(req),
+                user: await getUser(req, res),
                 services: await services.find()
             });
         } catch (e) {
@@ -104,7 +106,7 @@ app.route('/')
 app.route('/services')
     .get(async (req, res) => {
         res.render('services', {
-            user: await getUser(req),
+            user: await getUser(req, res),
             services: services.find()
         });
     });
@@ -118,7 +120,7 @@ app.route('/sign_up')
     .post(checkNotAuthenticated, async (req, res) => {
         try {
             if (await users.findOne({email: req.body.email})) {
-                return res.redirect('/sign-up?status=existing_email');
+                return res.redirect('/sign_up?status=existing_email');
             } else {
                 const HashedPassword = await bcrypt.hash(req.body.password, 8);
                 await new users({
@@ -156,7 +158,7 @@ app.route('/profile')
     .get(checkAuthenticated, async (req, res) => {
         try {
             res.render('profile', {
-                user: await getUser(req)
+                user: await getUser(req, res)
             });
         } catch (e) {
             throwError(e, req, res);
@@ -177,7 +179,7 @@ app.route('/admin_panel')
     .get(checkAdmin, async (req, res) => {
         try {
             res.render('admin-panel', {
-                user: await getUser(req),
+                user: await getUser(req, res),
                 services: await services.find()
             });
         } catch (e) {
@@ -189,7 +191,7 @@ app.route('/admin_panel/:id')
     .get(checkAdmin, async (req, res) => {
         try {
             res.render('admin-service', {
-                user: await getUser(req),
+                user: await getUser(req, res),
                 services: await services.findOne({_id: req.params.id})
             });
         } catch (e) {
@@ -238,20 +240,28 @@ app.route('/admin_panel/:id')
 /* ФУНКЦИИ */
 /* /////// */
 
-async function getUser(req) {
-    let user = {};
+async function getUser(req, res) {
     try {
-        user = await req.user;
+        const user = await req.user;
+        if (user)
+            return {
+                logged: req.isAuthenticated(),
+                firstname: user?.firstname,
+                lastname: user?.lastname,
+                email: user?.email,
+                accountType: user?.accountType
+            }
+        else {
+            return {
+                logged: false,
+                firstname: null,
+                lastname: null,
+                email: null,
+                accountType: null
+            }
+        }
     } catch (e) {
         throwError(e, req, res);
-    }
-
-    return {
-        logged: req.isAuthenticated(),
-        firstname: user?.firstname,
-        lastname: user?.lastname,
-        email: user?.email,
-        accountType: user?.accountType
     }
 }
 
