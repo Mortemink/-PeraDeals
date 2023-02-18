@@ -1,5 +1,3 @@
-'use strict'
-
 /* /////// */
 /* ИМПОРТЫ */
 /* /////// */
@@ -84,6 +82,8 @@ initialize(
     id => users.findOne({_id: id}),
 );
 
+
+
 /* /////// */
 /* ЗАПРОСЫ */
 /* /////// */
@@ -144,11 +144,9 @@ app.route('/login')
     })
     .post(checkNotAuthenticated,
         passport.authenticate("local", {
-            successRedirect: "/",
+            successRedirect: "/?status=successful_login",
             failureRedirect: "/login?status=failed_login"
-        }),
-        (req, res) => {
-        });
+        }, err => { if (err) console.error(err); }));
 //
 
 // NEED BE LOGGED
@@ -236,6 +234,8 @@ app.delete('/logout', checkAuthenticated, async (req, res) => {
         throwError(e, req, res);
     }
 })
+//
+
 
 /* /////// */
 /* ФУНКЦИИ */
@@ -247,10 +247,10 @@ async function getUser(req, res) {
         if (user)
             return {
                 logged: req.isAuthenticated(),
-                firstname: user?.firstname,
-                lastname: user?.lastname,
-                email: user?.email,
-                accountType: user?.accountType
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                accountType: user.accountType
             }
         else {
             return {
@@ -289,7 +289,7 @@ async function checkAuthenticated(req, res, next) {
 
 async function checkAdmin(req, res, next) {
     try {
-        if (req.isAuthenticated && await req.user.accountType >= 1) {
+        if (req.isAuthenticated() && await req.user.accountType >= 1) {
             return next();
         } else {
             return res.redirect('/?error=true');
