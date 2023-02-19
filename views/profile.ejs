@@ -1,6 +1,9 @@
 <%- include('partials/header.ejs') %>
     <div class="profileMain">
         <div class="profileBlock">
+            <form action="/logout?_method=DELETE" method="POST" class="exitBT">
+                <button type="submit">Выйти</button>
+            </form>
             <div class="profileIMG">
                 <img>
             </div>
