@@ -11,45 +11,63 @@
 </head>
 
 <body>
-    <header>
-        <div class="header_conteiner">
-            <a href="/">
-                <div class="logo">
-                    <img src="/img/logo.png" alt="">
-                </div>
-            </a>
-            <div class="header_menu">
-                <ul class="menu">
-                    <li>О нас</li>
-                    <li>Команда</li>
-                    <li>Услуги</li>
-                    <li>Контакты</li>
-                </ul>
+<header>
+    <div class="header_conteiner">
+        <a href="/">
+            <div class="logo">
+                <img src="/img/logo.png" alt="">
             </div>
-            <div class="authBt">
-                <% try { %>
-                    <% if (page==='profile' ) { %>
+        </a>
+        <div class="header_menu">
+            <ul class="menu">
+                <li>О нас</li>
+                <li>Команда</li>
+                <li>Услуги</li>
+                <li>Контакты</li>
+            </ul>
+        </div>
+        <div class="menu-right">
+            <% try { %>
+                <% if (page === 'profile' ) { %>
+                    <button>
+                        <a href="/">
+                            Главная страница
+                        </a>
+                    </button>
+                <% } %>
+            <% } catch (e) { %>
+                <% if (user.logged) { %>
+                    <button
+                        <% if (user.accountType === 0) { %>
+                            style="width: max-content"
+                        <% } %>
+                    >
+                        <a href="/profile">
+                            Профиль
+                        </a>
+                    </button>
+                    <% if (user.accountType >= 1) { %>
+                        <hr>
                         <button>
-                            <a href="/">
-                                Главная страница
+                            <a href="/admin_panel">
+                                Админ-панель
                             </a>
                         </button>
-                        <% } %>
-                            <% } catch (e) { %>
-                                <% if (user.logged) { %>
-                                    <button>
-                                        <a href="/profile">
-                                            Профиль
-                                        </a>
-                                    </button>
-                                    <% } else { %>
-                                        <button>
-                                            <a href="login">
-                                                Вход/Регистрация
-                                            </a>
-                                        </button>
-                                        <% } %>
-                                            <% } %>
-            </div>
+                    <% } %>
+                <% } else { %>
+                    <button>
+                        <a href="login">
+                            Вход
+                        </a>
+                    </button>
+                    <hr>
+                    <button>
+                        <a href="sign_up">
+                            Регистрация
+                        </a>
+                    </button>
+                <% } %>
+            <% } %>
         </div>
-    </header>
+    </div>
+</header>

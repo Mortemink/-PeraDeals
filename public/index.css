@@ -105,30 +105,36 @@ header {
     color: #9db800;
 }
 
-.authBt {
+.menu-right {
     position: relative;
-    width: 170px;
-    height: 40px;
+    width: 160px;
+    height: 60px;
     display: flex;
-    align-items: center;
-    justify-content: start;
+    flex-direction: column;
+    justify-content: center;
     margin-left: 25px;
 }
 
-.authBt button {
+.menu-right hr {
+    border: none;
+    border-bottom: 1px solid #9db800;
+}
+
+.menu-right button {
     background-color: initial;
     border: none;
     font-size: 20px;
     letter-spacing: 0.4px;
+    margin: 2px 0;
 }
 
-.authBt button a {
+.menu-right button a {
     color: white;
     font-family: BloggerSans;
     transition: 0.2s;
 }
 
-.authBt button a:hover {
+.menu-right button a:hover {
     color: #9db800;
 }
 
@@ -349,7 +355,7 @@ header {
 
 .tipName {
     font-size: 28px;
-    font-weight: 800px;
+    font-weight: 800;
     font-family: BloggerSans;
     color: #000000;
 }
@@ -754,4 +760,20 @@ footer {
 
 .historyItem div {
      overflow: hidden;
+}
+
+/* admin css */
+
+.admin {
+    min-width: 800px;
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-selector {
+
+}
+
+.admin-content {
+
 }

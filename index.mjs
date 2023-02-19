@@ -38,7 +38,7 @@ app.set('trust proxy', true)
 app.use(session({
     store: mongoStore.create({
         mongoUrl: "mongodb://127.0.0.1:27017/STO",
-        ttl: 1 * 24 * 60 * 60
+        ttl: 60 * 60 * 24 * 1
     }),
     secret: process.env.SECRET || 'ГАВНО',
     resave: false,
@@ -54,9 +54,10 @@ const PORT = process.env.PORT || 3000;
 
 function start() {
     try {
-        mongoose.set('strictQuery', false);
         const DB = `mongodb://127.0.0.1:27017/STO`;
+        mongoose.set('strictQuery', false);
         mongoose.connect(DB, {
+            autoIndex: false,
             useNewUrlParser: true,
             useUnifiedTopology: true
         }, (e) => {
@@ -185,7 +186,7 @@ app.route('/admin_panel')
 app.route('/admin_panel/:id')
     .get(checkAdmin, async (req, res) => {
         try {
-            res.render('admin-service', {
+            res.render('admin-panel', {
                 user: await getUser(req, res),
                 services: await services.findOne({_id: req.params.id})
             });
@@ -249,27 +250,29 @@ app.delete('/logout', checkAuthenticated, async (req, res) => {
 /* /////// */
 
 async function getUser(req, res) {
-    const user = {};
-    user.logged = req.isAuthenticated();
+    const user = {
+        logged: req.isAuthenticated(),
+        firstname: null,
+        lastname: null,
+        email: null,
+        accountType: null,
+        created: null,
+    };
     try {
-        const _user = await req.user || {
-            firstname: null,
-            lastname: null,
-            email: null,
-            accountType: null,
-            created: null,
-        };
-        user.firstname = _user.firstname;
-        user.lastname = _user.lastname;
-        user.email = _user.email;
-        user.accountType = _user.accountType;
-        user.created = _user.created;
+        if (user.logged) {
+            await req.user.clone().then((data) => {
+                user.firstname = data.firstname;
+                user.lastname = data.lastname;
+                user.email = data.email;
+                user.accountType = data.accountType;
+                user.created = data.created;
+            });
+        }
     } catch (e) {
         console.error(e);
     }
-    finally {
-        return user;
-    }
+
+    return user;
 }
 
 function throwError(err, req, res) {
@@ -295,11 +298,12 @@ async function checkAuthenticated(req, res, next) {
 
 async function checkAdmin(req, res, next) {
     try {
-        if (req.isAuthenticated() && await req.user.accountType >= 1) {
+        const user = await getUser(req, res);
+        if (user.logged && user.accountType >= 1) {
             return next();
+        } else {
+            return res.redirect('/?error=true');
         }
-
-        res.redirect('/?error=true');
     } catch (e) {
         throwError(e, req, res);
     }
