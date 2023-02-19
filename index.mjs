@@ -38,7 +38,7 @@ app.set('trust proxy', true)
 app.use(session({
     store: mongoStore.create({
         mongoUrl: "mongodb://127.0.0.1:27017/STO",
-        ttl: 2 * 24 * 60 * 60
+        ttl: 1 * 24 * 60 * 60
     }),
     secret: process.env.SECRET || 'ГАВНО',
     resave: false,
@@ -249,27 +249,26 @@ app.delete('/logout', checkAuthenticated, async (req, res) => {
 /* /////// */
 
 async function getUser(req, res) {
+    const user = {};
+    user.logged = req.isAuthenticated();
     try {
-        const user = await req.user;
-        if (!!user)
-            return {
-                logged: req.isAuthenticated(),
-                firstname: user?.firstname,
-                lastname: user?.lastname,
-                email: user?.email,
-                accountType: user?.accountType
-            }
-        else {
-            return {
-                logged: false,
-                firstname: null,
-                lastname: null,
-                email: null,
-                accountType: null
-            }
-        }
+        const _user = await req.user || {
+            firstname: null,
+            lastname: null,
+            email: null,
+            accountType: null,
+            created: null,
+        };
+        user.firstname = _user.firstname;
+        user.lastname = _user.lastname;
+        user.email = _user.email;
+        user.accountType = _user.accountType;
+        user.created = _user.created;
     } catch (e) {
-        throwError(e, req, res);
+        console.error(e);
+    }
+    finally {
+        return user;
     }
 }
 

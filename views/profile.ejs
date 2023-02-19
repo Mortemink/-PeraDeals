@@ -8,8 +8,8 @@
                 <img>
             </div>
             <div class="userInfo">
-                <p>Саня</p>
-                <p>Точка</p>
+                <p><%= user.firstname %></p>
+                <p><%= user.lastname %></p>
             </div>
             <div class="infoChange">
                 <form><button>Изменить данные</button></form>
@@ -21,8 +21,8 @@
                     <p>Пароль</p>
                 </div>
                 <div class="stats">
-                    <p>28.02.2023</p>
-                    <p>1@1</p>
+                    <p><%= user.created.toLocaleDateString('ru-RU') %></p>
+                    <p><%= user.email %></p>
                     <p>*******</p>
                 </div>
             </div>
