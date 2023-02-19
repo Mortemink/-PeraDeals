@@ -244,13 +244,13 @@ app.delete('/logout', checkAuthenticated, async (req, res) => {
 async function getUser(req, res) {
     try {
         const user = await req.user;
-        if (user)
+        if (!!user)
             return {
                 logged: req.isAuthenticated(),
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                accountType: user.accountType
+                firstname: user?.firstname,
+                lastname: user?.lastname,
+                email: user?.email,
+                accountType: user?.accountType
             }
         else {
             return {
