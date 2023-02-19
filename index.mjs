@@ -113,7 +113,10 @@ app.route('/services')
 // SIGN UP AND LOG IN
 app.route('/sign_up')
     .get(checkNotAuthenticated, async (req, res) => {
-        res.render('sign-up', { status: req.query.status });
+        res.render('sign-up', {
+            user: await getUser(req, res),
+            status: req.query.status
+        });
     })
     .post(checkNotAuthenticated, async (req, res) => {
         try {
@@ -139,8 +142,11 @@ app.route('/sign_up')
     });
 
 app.route('/login')
-    .get(checkNotAuthenticated, (req, res) => {
-        res.render('login', {status: req.query.status})
+    .get(checkNotAuthenticated, async (req, res) => {
+        res.render('login', {
+            user: await getUser(req, res),
+            status: req.query.status
+        })
     })
     .post(checkNotAuthenticated,
         passport.authenticate("local", {
@@ -154,7 +160,8 @@ app.route('/profile')
     .get(checkAuthenticated, async (req, res) => {
         try {
             res.render('profile', {
-                user: await getUser(req, res)
+                user: await getUser(req, res),
+                page: 'profile'
             });
         } catch (e) {
             throwError(e, req, res);
@@ -291,9 +298,9 @@ async function checkAdmin(req, res, next) {
     try {
         if (req.isAuthenticated() && await req.user.accountType >= 1) {
             return next();
-        } else {
-            return res.redirect('/?error=true');
         }
+
+        res.redirect('/?error=true');
     } catch (e) {
         throwError(e, req, res);
     }
