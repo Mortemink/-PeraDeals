@@ -1,150 +1,98 @@
 <%- include('partials/header.ejs') %>
-<form action="/logout?_method=DELETE" method="POST">
-    <button type="submit">YES</button>
-</form>
-<header>
-
-    <div class="header_conteiner">
-        <div class="logo">
-            <img src="/img/logo.png" alt="">
-        </div>
-        <div class="header_menu">
-            <ul class="menu">
-                <li>О нас</li>
-                <li>Команда</li>
-                <li>Услуги</li>
-                <li>Контакты</li>
-            </ul>
-        </div>
-        <div class="authBt">
-            <% if (user.logged) { %>
-                <button>
-                    <a href="profile">
-                        Профиль
-                    </a>
-                </button>
-            <% } else { %>
-                <button>
-                    <a href="login">
-                        Вход/Регистрация
-                    </a>
-                </button>
-            <% } %>
-        </div>
-    </div>
-</header>
-
-<main>
-    <div class="aboutUs">
-        <div class="contentAbout">
-            <div class="text">
-                <div class="abilites">
-                    <p>ДОВЕРИЕ, ОПЫТ, <span style="font-weight: 600;">ЗНАНИЯ & СКОРОСТЬ</span></p>
+    <form action="/logout?_method=DELETE" method="POST">
+        <button type="submit">YES</button>
+    </form>
+    <main>
+        <div class="aboutUs">
+            <div class="contentAbout">
+                <div class="text">
+                    <div class="abilites">
+                        <p>ДОВЕРИЕ, ОПЫТ, <span style="font-weight: 600;">ЗНАНИЯ & СКОРОСТЬ</span></p>
+                    </div>
+                    <div class="whyWe">
+                        <p style="font-size: 36px; font-weight: 600;">Почему мы?</p>
+                        <p>Мы обеспечиваем вам надежное обслуживание автомобиля и уверенность в том, что механики,
+                            работающие в нашем сервисе, честны, надежны, полностью обучены и квалифицированы для
+                            обслуживания вашего автомобиля. Мы используем весь наш опыт и знания для достижения
+                            наилучшего результата!</p>
+                    </div>
                 </div>
-                <div class="whyWe">
-                    <p style="font-size: 36px; font-weight: 600;">Почему мы?</p>
-                    <p>Мы обеспечиваем вам надежное обслуживание автомобиля и уверенность в том, что механики,
-                        работающие в нашем сервисе, честны, надежны, полностью обучены и квалифицированы для
-                        обслуживания вашего автомобиля. Мы используем весь наш опыт и знания для достижения
-                        наилучшего результата!</p>
-                </div>
+                <button class="textUs">Связаться с нами</button>
             </div>
-            <button class="textUs">Связаться с нами</button>
+            <img src="/img/engine.png" alt="">
         </div>
-        <img src="/img/engine.png" alt="">
-    </div>
-    <div class="services">
-        <div class="serviceText">
-            <p style="font-size: 32px; color: #9db800;">01</p>
-            <p><span style="font-weight: 900;">НИЖЕ ПРИВЕДЕНЫ НЕКОТОРЫЕ ИЗ</span><br> МНОГОЧИСЛЕННЫХ УСЛУГ ПО
-                РЕМОНТУ АВТОМОБИЛЕЙ,<br> КОТОРЫЕ МЫ
-                ПРЕДЛАГАЕМ:</p>
-            <p style="font-size: 18px; margin-top: 20px; color: #8d8d8d;">
-                Мы специализируемся на техническом обслуживании транспортных средств, обслуживании
-                электрооборудования, обслуживании трансмиссии, обслуживании в тяжелых условиях эксплуатации и многом
-                другом.
+        <div class="services">
+            <div class="serviceText">
+                <p style="font-size: 32px; color: #9db800;">01</p>
+                <p><span style="font-weight: 900;">НИЖЕ ПРИВЕДЕНЫ НЕКОТОРЫЕ ИЗ</span><br> МНОГОЧИСЛЕННЫХ УСЛУГ ПО
+                    РЕМОНТУ АВТОМОБИЛЕЙ,<br> КОТОРЫЕ МЫ
+                    ПРЕДЛАГАЕМ:</p>
+                <p style="font-size: 18px; margin-top: 20px; color: #8d8d8d;">
+                    Мы специализируемся на техническом обслуживании транспортных средств, обслуживании
+                    электрооборудования, обслуживании трансмиссии, обслуживании в тяжелых условиях эксплуатации и многом
+                    другом.
 
-            <p style="font-size: 18px; margin-top: 10px; color: #8d8d8d;">Сертифицированные специалисты нашей
-                мастерской обладают более чем 45-летним опытом и знаниями,
-                необходимыми для обслуживания и ремонта самых сложных автомобильных неисправностей всех марок и
-                моделей.</p>
-            </p>
-        </div>
-        <button class="moreServices">Больше услуг 🠖</button>
-    </div>
-    <div class="uslugi">
-        <div class="item">
-            <p>Полный осмотр машины</p>
-            <img src="/img/service1.png">
-        </div>
-        <div class="item">
-            <p>Замена расходников</p>
-            <img src="/img/service1.png">
-        </div>
-        <div class="item">
-            <p>Смена резины</p>
-            <img src="/img/service1.png">
-        </div>
-        <div class="item">
-            <p>Детейлинг</p>
-            <img src="/img/service1.png">
-        </div>
-    </div>
-    <div class="contactUs">
-        <div>
-            <p>ЗАПИШИТЕСЬ НА ПРИЕМ СЕГОДНЯ</p>
-            <p>ЗВОНИ: <span style="color: #9db800;">8-800-555-35-35</span></p>
-        </div>
-        <button class="textUs" style="position: relative;">Связаться с нами</button>
-    </div>
-    <div class="stuff">
-        <div class="stuffText">
-            <p style="font-size: 32px; color: #9db800;">02</p>
-            <p><span style="font-weight: 900;">НАША КОМАНДА</span> СПЕЦИАЛИСТОВ</p>
-        </div>
-        <div class="stuffIMG">
-            <div class="tipok">
-                <img src="/img/tipok.png" alt="">
-                <div>
-                    <p class="tipName">Арсен Валерьевич</p>
-                    <p>Техник</p>
-                </div>
+                <p style="font-size: 18px; margin-top: 10px; color: #8d8d8d;">Сертифицированные специалисты нашей
+                    мастерской обладают более чем 45-летним опытом и знаниями,
+                    необходимыми для обслуживания и ремонта самых сложных автомобильных неисправностей всех марок и
+                    моделей.</p>
+                </p>
             </div>
-            <div class="tipok">
-                <img src="/img/tipok.png" alt="">
-                <div>
-                    <p class="tipName">Фарходжон Назаров</p>
-                    <p>Помощник техника</p>
-                </div>
+            <button class="moreServices">Больше услуг 🠖</button>
+        </div>
+        <div class="uslugi">
+            <div class="item">
+                <p>Полный осмотр машины</p>
+                <img src="/img/service1.png">
             </div>
-            <div class="tipok">
-                <img src="/img/tipok.png" alt="">
-                <div>
-                    <p class="tipName">Александр и Точка</p>
-                    <p>Главарь</p>
+            <div class="item">
+                <p>Замена расходников</p>
+                <img src="/img/service1.png">
+            </div>
+            <div class="item">
+                <p>Смена резины</p>
+                <img src="/img/service1.png">
+            </div>
+            <div class="item">
+                <p>Детейлинг</p>
+                <img src="/img/service1.png">
+            </div>
+        </div>
+        <div class="contactUs">
+            <div>
+                <p>ЗАПИШИТЕСЬ НА ПРИЕМ СЕГОДНЯ</p>
+                <p>ЗВОНИ: <span style="color: #9db800;">8-800-555-35-35</span></p>
+            </div>
+            <button class="textUs" style="position: relative;">Связаться с нами</button>
+        </div>
+        <div class="stuff">
+            <div class="stuffText">
+                <p style="font-size: 32px; color: #9db800;">02</p>
+                <p><span style="font-weight: 900;">НАША КОМАНДА</span> СПЕЦИАЛИСТОВ</p>
+            </div>
+            <div class="stuffIMG">
+                <div class="tipok">
+                    <img src="/img/tipok.png" alt="">
+                    <div>
+                        <p class="tipName">Арсен Валерьевич</p>
+                        <p>Техник</p>
+                    </div>
+                </div>
+                <div class="tipok">
+                    <img src="/img/tipok.png" alt="">
+                    <div>
+                        <p class="tipName">Фарходжон Назаров</p>
+                        <p>Помощник техника</p>
+                    </div>
+                </div>
+                <div class="tipok">
+                    <img src="/img/tipok.png" alt="">
+                    <div>
+                        <p class="tipName">Александр и Точка</p>
+                        <p>Главарь</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
-<footer>
-    <div class="contacts">
-        <p class="contact">КОНТАКТЫ</p>
-        <div style="margin-top: 30px; height: 3px; width: 170px; background-color: #9db800;"></div>
-        <div class="contactsInfo">
-            <p><a href="https://yandex.ru/maps/-/CCUGE-Al1B">Дачная улица, 20, Самара</a></p>
-            <p>Телефон: 8-800-555-35-35</p>
-            <p>Почта: <span>PeraDealservice@gmail.com</span></p>
-        </div>
-    </div>
-    <div class="socials">
-        <img src="/img/logo.png">
-        <div class="socialsIMG">
-            <img src="/img/vk.png">
-            <img src="/img/insta.png">
-            <img src="/img/telega.png">
-        </div>
-    </div>
-</footer>
-
-<%- include('partials/footer.ejs') %>
+    </main>
+    <%- include('partials/footer.ejs') %>

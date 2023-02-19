@@ -115,15 +115,20 @@ header {
 
 .authBt button {
     background-color: initial;
-    color: white;
+    
     border: none;
     font-size: 20px;
-    font-family: BloggerSans;
-    transition: 0.2s;
+    
     letter-spacing: 0.4px;
 }
 
-.authBt button:hover {
+.authBt button a{
+    color: white;
+    font-family: BloggerSans;
+    transition: 0.2s;
+}
+
+.authBt button a:hover {
     color: #9db800;
 }
 
