@@ -11,17 +11,14 @@ button {
     cursor: pointer;
 }
 
-A:link {
-    text-decoration: none;
-    color: white;
+
+a{
+    cursor: pointer;
 }
 
-A:visited {
-    text-decoration: none;
-    color: white;
-}
-
-A:active {
+A:link,
+A:visited,
+A:active{
     text-decoration: none;
     color: white;
 }
@@ -771,13 +768,18 @@ footer {
     align-items: center;
 }
 
-.admin .admin-selectors,
+.admin .admin-selectors ,
 .admin .admin-actions,
 .admin .admin-content {
     min-width: 800px;
     background-color: whitesmoke;
     border: 1px solid #9db800;
     border-top: none;
+    position: relative;
+}
+
+.admin-actions{
+height: 280px;
 }
 
 .admin-selectors {
@@ -806,16 +808,39 @@ footer {
     color: white;
 }
 
-.create-service {
-
-}
-
 .create-service p,
 .create-service input[type="text"],
 .create-service input[type="number"] {
     margin: 2px 4px;
     font-family: BloggerSans;
     font-size: 14pt;
+}
+
+.create-service{
+    height: 280px;
+}
+
+.create-service button{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    height: 30px;
+    width: 160px;
+    background-color: #9db800;
+    border: 1px solid #9db800;
+    color: white;
+    font-family: BloggerSans;
+    font-size: 14pt;
+    
+}
+
+.find-users p,
+.find-users input[type="text"],
+.find-users input[type="number"]{
+    margin: 2px 4px;
+    font-family: BloggerSans;
+    font-size: 14pt;
+    width: 300px;
 }
 
 .create-service hr {
@@ -835,6 +860,36 @@ footer {
     height: 72px;
 }
 
-.admin-content {
+
+.userItem{
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-family: BloggerSans;
+    font-size: 14pt;
+    height: 26px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border: 1px solid #9db800;
+    cursor: pointer;
+}
+
+.userMail{
+    margin-left: 10px;
+}
+
+.userName{
+    padding-right: 10px;
+    border-right: 1px solid #9db800;
+    margin-left: 5px;
+}
+
+.userItem img{
+    height: 18px;
+    width: 18px;  
+    position: absolute; 
+    right: 3px;
 
 }
