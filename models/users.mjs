@@ -28,10 +28,19 @@ const _users = new mongoose.Schema({
         unique: false,
         default: 0
     },
+    history: [
+        {
+            serviceId: mongoose.Schema.Types.ObjectId | null,
+            serviceName: String,
+            serviceDescription: String,
+            serviceUseDate: Date
+        }
+    ],
     created: {
         type: Date,
         required: true,
-        unique: false
+        unique: false,
+        default: Date.now()
     }
 });
 _users.plugin(passportLocalMongoose);

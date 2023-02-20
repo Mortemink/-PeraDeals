@@ -21,7 +21,7 @@ const _services = new mongoose.Schema({
         default: 0
     },
     createdBy: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: false
     },

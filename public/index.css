@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+.disabled {
+    display: none !important;
+}
+
 button {
     cursor: pointer;
 }
@@ -800,6 +804,35 @@ footer {
 .activated-button {
     background-color: #9db800;
     color: white;
+}
+
+.create-service {
+
+}
+
+.create-service p,
+.create-service input[type="text"],
+.create-service input[type="number"] {
+    margin: 2px 4px;
+    font-family: BloggerSans;
+    font-size: 14pt;
+}
+
+.create-service hr {
+    margin: 4px;
+}
+
+.input-service-name,
+.input-service-description {
+    text-align: start;
+}
+
+.input-service-name {
+    height: 24px;
+}
+
+.input-service-description {
+    height: 72px;
 }
 
 .admin-content {

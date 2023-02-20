@@ -2,11 +2,23 @@
 <main>
     <div class="admin">
         <div class="admin-selectors">
-            <button class="activated-button">Услуги</button>
-            <button>Пользователи</button>
+            <button class="activated-button" id="btn-services">Услуги</button>
+            <button id="btn-users">Пользователи</button>
         </div>
         <div class="admin-actions">
+            <div class="create-service">
+                <p>Название</p>
+                <input class="input-service-name" type="text" placeholder="Введите название...">
+                <hr>
+                <p>Описание</p>
+                <input class="input-service-description" type="text" placeholder="Введите описание...">
+                <hr>
+                <p>Цена</p>
+                <input type="number" min="0" value="0">
+            </div>
+            <div class="find-users disabled">
 
+            </div>
         </div>
         <div class="admin-content">
 

@@ -175,21 +175,49 @@ app.route('/admin_panel')
     .get(checkAdmin, async (req, res) => {
         try {
             res.render('admin-panel', {
-                user: await getUser(req, res),
-                services: await services.find()
+                user: await getUser(req, res)
             });
         } catch (e) {
             throwError(e, req, res);
         }
     });
 
+
+
 app.route('/admin_panel/:id')
     .get(checkAdmin, async (req, res) => {
         try {
-            res.render('admin-panel', {
-                user: await getUser(req, res),
-                services: await services.findOne({_id: req.params.id})
-            });
+            const type = req.query.type;
+            let result;
+            switch (type) {
+                case 'service':
+                    res.status(200);
+                    result = await services.findOne({ _id: req.params.id });
+                    if (result)
+                        res.json(result);
+                    else {
+                        res.status(404);
+                        res.json({})
+                    }
+                    res.end();
+                    break;
+                case 'user':
+                    res.status(200);
+                    result = await users.findOne({ _id: req.params.id }, { password: 0 });
+                    if (result)
+                        res.json(result);
+                    else {
+                        res.status(404);
+                        res.json({})
+                    }
+                    res.end();
+                    break;
+                default:
+                    res.status(404);
+                    res.json({});
+                    res.end();
+            }
+
         } catch (e) {
             throwError(e, req, res);
         }
@@ -222,9 +250,46 @@ app.route('/admin_panel/:id')
     })
     .delete(checkAdmin, async (req, res) => {
         try {
-            await services.findOneAndDelete({_id: req.params.id}).then(() => {
-                res.redirect('/admin_panel');
-            });
+            const type = req.query.type;
+            const id = req.params.id;
+            switch (type) {
+                case 'service': {
+                    users.updateMany(true,
+                        { history: history.map(service => {
+                                if (service.serviceId === id)
+                                    service.serviceId = null;
+
+                                return service;
+                            })
+                        });
+                    await services.findOneAndDelete({ _id: id })
+                        .then(() => {
+                            return res.json({ good: true });
+                        })
+                        .catch((e) => {
+                            if (e) console.error(e);
+                            return res.json({ good: false });
+                        });
+                    break;
+                }
+                case 'userhistoryitem': {
+                    let history = await users.findOne({_id: id}, { history: 1, _id: 0 });
+                    history = history.filter(service => service.serviceId !== req.body.service_id);
+                    await users.findByIdAndUpdate(id, { history: history })
+                        .then(() => {
+                            return res.json({ good: true });
+                        })
+                        .catch((e) => {
+                            if (e) console.error(e);
+                            return res.json({ good: false });
+                        });
+                    break;
+                }
+                default: {
+
+                }
+            }
+
         } catch (e) {
             throwError(e, req, res);
         }
