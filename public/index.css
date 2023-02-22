@@ -52,6 +52,7 @@ body {
 /* header css */
 
 header {
+    position: relative;
     width: 100%;
     background-color: #19191a;
     height: 110px;
@@ -102,6 +103,15 @@ header {
 }
 
 .menu li:hover {
+    color: #9db800;
+}
+
+.menu li a {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu li a:hover {
     color: #9db800;
 }
 
@@ -261,7 +271,7 @@ header {
 
 .item {
     position: relative;
-    width: 478px;
+    width: 476px;
     height: 550px;
     display: flex;
     justify-content: center;
@@ -779,7 +789,7 @@ footer {
 }
 
 .admin-actions{
-height: 280px;
+height: auto;
 }
 
 .admin-selectors {
@@ -818,12 +828,16 @@ height: 280px;
 
 .create-service{
     height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .create-service button{
     position: absolute;
     bottom: 10px;
-    left: 10px;
+    left: calc(50% - 80px);
     height: 30px;
     width: 160px;
     background-color: #9db800;
@@ -841,6 +855,16 @@ height: 280px;
     font-family: BloggerSans;
     font-size: 14pt;
     width: 300px;
+}
+
+.find-users{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
 }
 
 .create-service hr {
@@ -891,5 +915,41 @@ height: 280px;
     width: 18px;  
     position: absolute; 
     right: 3px;
+
+}
+
+/*services css*/
+
+.mainBlock{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.itemlist{
+    position: relative;
+    width: 82%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.serviceItem{
+    width: 376px;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 5px;
+}
+
+.serviceItem img{
+    position: relative;
+    width: 376px;
+    height: 450px;
 
 }
