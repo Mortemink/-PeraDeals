@@ -170,7 +170,7 @@ app.route('/get_info')
                     if (accountType >= 1) {
                         const all_users = await users.find({}, { password: 0 });
                         res.json(all_users.filter(user => {
-                            return value.filter(substr => (user.firstname + user.lastname + user.email).includes(substr)).length > 0;
+                            return value.filter(substr => (user.firstname + user.lastname).includes(substr) || user.email.includes(substr)).length > 0;
                         }));
                     } else {
                         res.status(401);

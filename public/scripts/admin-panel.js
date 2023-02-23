@@ -3,9 +3,9 @@ const StatesObject = {
         selector: document.getElementById('btn-services'),
         action: {
             div: document.querySelector(".create-service"),
-            name:  document.getElementById("serviceName"),
-            description:  document.getElementById("serviceDescription"),
-            price:  document.getElementById("servicePrice"),
+            name: document.getElementById("serviceName"),
+            description: document.getElementById("serviceDescription"),
+            price: document.getElementById("servicePrice"),
         },
     },
     users: {
@@ -17,6 +17,9 @@ const StatesObject = {
     },
     contentDiv: document.getElementById("adminContent")
 }
+
+console.log(StatesObject)
+
 // SERVICE
 StatesObject.services.selector.addEventListener('click', async () => {
     if (StatesObject.services.selector.classList.contains('activated-button'))
@@ -60,6 +63,7 @@ async function RenderContent(type, value) {
             StatesObject.contentDiv.innerHTML = "";
 
             data = await data.json();
+            console.log(data)
             if (data.length === 0) {
                 StatesObject.contentDiv.innerHTML = "Ничего не найдено."
             } else {
