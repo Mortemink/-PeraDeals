@@ -640,6 +640,8 @@ footer {
     align-items: center;
 }
 
+
+
 .profileIMG {
     position: relative;
     width: 100%;
@@ -918,11 +920,58 @@ height: auto;
 
 }
 
+.userStatsAdmin{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.userStatsAdmin p{
+    font-size: 18px;
+    font-family: BloggerSans;
+    margin-top: 6px;
+}
+
+
+.addRemoveService{
+    left: 200px;
+    top: 235px;
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.addRemoveService form,
+.addRemoveService form button,
+.addRemoveService form button img{
+    height: 20px;
+    width: 20px;
+    border: none;
+}
+
+.profileBlockPopUp {
+    position: relative;
+    width: 480px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 500px;
+    border: 2px solid #9db800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /*services css*/
 
 .mainBlock{
     position: relative;
     width: 100%;
+    min-height: 880px;
     display: flex;
     justify-content: center;
 }
@@ -938,18 +987,50 @@ height: auto;
 }
 
 .serviceItem{
+    position: relative;
     width: 376px;
     height: 450px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
+    /* justify-content: center;  */
+    flex-direction: column;
     margin: 5px;
+    text-align: center;
 }
 
 .serviceItem img{
-    position: relative;
+    position: absolute;
     width: 376px;
     height: 450px;
+}
 
+.serviceInfo{
+    position: absolute;
+    z-index: 232;
+    color: white;
+    font-family: Raleway;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 8px;
+    width: 100%;
+    height: 330px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    word-wrap: break-word;
+    top: 100px;
+}
+
+#serviceName{
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.servicePrice{
+    position: absolute;
+    bottom: 0;
+    color: #9db800;
+    font-size: 22px;
 }
