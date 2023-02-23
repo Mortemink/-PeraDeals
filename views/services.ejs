@@ -1,15 +1,17 @@
 <%- include('partials/header.ejs') %>
     <div class="mainBlock">
         <div class="itemlist">
+            <% services.forEach(service => { %>
             <div class="serviceItem">
                 <div class="serviceInfo">
-                    <p id="serviceName">Замена резины</p>
-                    <p>Замена одного или нескольких колес</p>
-                    <p class="servicePrice">3000 <span style="color: white;">₽</span></p>
+                    <p id="serviceName"><%= service.name %></p>
+                    <p><%= service.description %></p>
+                    <p class="servicePrice"><%= service.cost %> <span style="color: white;">₽</span></p>
                 </div>
                 
                 <img src="/img/service1.png" alt="">
             </div>
+            <% }); %>
         </div>
     </div>
     <%- include('partials/footer.ejs') %>

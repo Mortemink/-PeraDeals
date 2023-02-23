@@ -106,7 +106,7 @@ app.route('/services')
     .get(async (req, res) => {
         res.render('services', {
             user: await getUser(req, res),
-            services: services.find()
+            services: await services.find()
         });
     });
 //
