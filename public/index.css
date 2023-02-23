@@ -843,20 +843,48 @@ height: auto;
     font-size: 14pt;
 }
 
-.create-service{
-    height: 280px;
+.create-service {
+    height: auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: start;
+    align-content: start;
     justify-content: center;
 }
 
-.create-service button{
-    position: absolute;
-    bottom: 10px;
-    left: calc(50% - 80px);
+.create-service h2 {
+    font-family: BloggerSans;
+    font-size: 18pt;
+    margin: 4px 4px 8px;
+    text-align: center;
+}
+
+.input-service-name,
+.input-service-description {
+}
+
+.input-service-name {
+    width: 256px;
+    height: 24px;
+    font-size: 14pt !important;
+}
+
+.input-service-description {
+    height: 84px;
+    width: 256px;
+    line-height: 24px;
+    font-size: 14pt !important;
+}
+
+.input-service-price {
+    width: 96px;
+}
+
+.create-service button {
     height: 30px;
     width: 160px;
+    margin: 24px 12px 12px;
     background-color: #9db800;
     border: 1px solid #9db800;
     color: white;
@@ -883,24 +911,6 @@ height: auto;
     text-align: center;
     margin-top: 5px;
 }
-
-.create-service hr {
-    margin: 4px;
-}
-
-.input-service-name,
-.input-service-description {
-    text-align: start;
-}
-
-.input-service-name {
-    height: 24px;
-}
-
-.input-service-description {
-    height: 72px;
-}
-
 
 .userItem{
     position: relative;

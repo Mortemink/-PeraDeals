@@ -6,17 +6,25 @@
                 <button id="btn-users">Пользователи</button>
             </div>
             <div class="admin-actions ">
+                <form action="/admin_panel/create" method="POST">
                 <div class="create-service">
-                    <p>Название</p>
-                    <input class="input-service-name" id="serviceName" type="text" placeholder="Введите название...">
-                    <hr>
-                    <p>Описание</p>
-                    <input class="input-service-description" id="serviceDescription" type="text" placeholder="Введите описание...">
-                    <hr>
-                    <p>Цена</p>
-                    <input type="number" min="0" value="0" class="input-service-price" id="servicePrice">
-                    <button>Создать </button>
+                    <h2 style="width: 100%">Создание услуги</h2>
+                    <div style="border-top: 1px solid #9db800; padding-top: 8px">
+                        <p>Название</p>
+                        <input class="input-service-name" id="serviceName" type="text"
+                               placeholder="Введите название...">
+                        <p>Цена</p>
+                        <input type="number" min="0" value="0" class="input-service-price" id="servicePrice">
+                    </div>
+                    <div style="border-top: 1px solid #9db800; padding-top: 8px">
+                        <p>Описание</p>
+                        <input class="input-service-description" id="serviceDescription" type="text"
+                               placeholder="Введите описание...">
+                    </div>
+                    <div style="width: 100%;"></div> <!-- wrapper -->
+                    <button>Создать</button>
                 </div>
+                </form>
                 <div class="find-users disabled">
                     <p>Поиск пользователя</p>
                     <input class="input-service-name" id="searchField" type="text" placeholder="Введите имя, фамилию или email">
