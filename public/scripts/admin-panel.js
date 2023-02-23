@@ -18,9 +18,8 @@ const StatesObject = {
     contentDiv: document.getElementById("adminContent")
 }
 
-console.log(StatesObject)
-
 // SERVICE
+RenderContent('service', null);
 StatesObject.services.selector.addEventListener('click', async () => {
     if (StatesObject.services.selector.classList.contains('activated-button'))
         return;
@@ -76,9 +75,9 @@ async function RenderContent(type, value) {
                                         <p>Название: ${item.name}</p>
                                     </div>
                                     <div class="uslugaPrice">
-                                        <p>Цена: ${item.price}<span> ₽</span></p>
+                                        <p>Цена: ${item.cost}<span> ₽</span></p>
                                     </div>
-                                    <div style="width: 100%; margin-top: 2px; margin-bottom: 2px; border-bottom: 1px solid #9db800"></div> <!-- wrapper -->
+                                    <div style="width: 100%; margin-top: 2px; margin-bottom: 2px;"></div> <!-- wrapper -->
                                     <div class="uslugaDescription">Описание: ${item.description}</div>
                                     <button class="uslugaDelete" onclick="">Удалить услугу</button>
                                 </div>`;

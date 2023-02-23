@@ -160,7 +160,7 @@ app.route('/get_info')
         try {
             const accountType = (await req.user)?.accountType || 0;
             const type = req.query.type;
-            const value = req.query.value.split('_').filter(substr => substr !== '');
+            const value = req.query.value?.split('_')?.filter(substr => substr !== '');
             switch (type) {
                 case 'service': {
                     res.json(await services.find({}, { createdBy: 0 }));
@@ -260,7 +260,9 @@ app.route('/admin_panel/:id')
                     new services({
                         name: req.body.name,
                         description: req.body.description,
-                        cost: req.body.cost
+                        cost: req.body.cost,
+                        createdBy: (await req.user)._id,
+                        createdDate: Date.now()
                     })
                         .save();
             } else {
@@ -268,7 +270,8 @@ app.route('/admin_panel/:id')
                     services.findByIdAndUpdate(id, {
                         name: req.body.name,
                         description: req.body.description,
-                        cost: req.body.cost
+                        cost: req.body.cost,
+                        createdBy: (await req.user)._id
                     });
             }
 

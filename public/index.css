@@ -758,14 +758,14 @@ footer {
     font-family: BloggerSans;
     margin-left: 4px;
     flex-grow: 5;
-    max-width: calc((100%/6)*5);
+    max-width: 78%;
     height: 64px;
 }
 
 .uslugaDelete {
     font-family: BloggerSans;
     font-size: 12pt;
-    flex-grow: 1;
+    width: 20%;
     margin-right: 4px;
     height: 32px;
     margin-top: auto;
