@@ -730,38 +730,53 @@ footer {
     font-family: BloggerSans;
 }
 
-.historyItem{
+.historyItem {
     font-size: 18px;
-    height: 22px;
+    height: auto;
     margin-top: 5px;
-    display: flex;
     border-bottom: 1px solid #9db800;
+    display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
-
-.date{
-    position: absolute;
-    left: 10px;
-    width: 80px;
+.uslugaName {
+    font-family: BloggerSans;
+    margin-left: 4px;
+    flex-grow: 3;
+    max-width: calc((100%/4)*3);
 }
 
-.uslugaName{
-    position: absolute;
-    left: calc(50% - 150px);
-    width: 300px;
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    margin-left: 6px;
+.uslugaPrice {
+    font-family: BloggerSans;
+    flex-grow: 1;
+    text-align: right;
+    margin-right: 4px;
 }
 
-.price{
-    margin-left: 6px;
-    text-align: end;
-    width: 60px;
-    position: absolute;
-    right: 10px;
+.uslugaDescription {
+    font-family: BloggerSans;
+    margin-left: 4px;
+    flex-grow: 5;
+    max-width: calc((100%/6)*5);
+    height: 64px;
+}
+
+.uslugaDelete {
+    font-family: BloggerSans;
+    font-size: 12pt;
+    flex-grow: 1;
+    margin-right: 4px;
+    height: 32px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, .5);
+    transition: .2s;
+}
+
+.uslugaDelete:hover {
+    background-color: rgba(255, 0, 0, .8);
 }
 
 .historyItem div {

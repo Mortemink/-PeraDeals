@@ -154,6 +154,35 @@ app.route('/login')
             successRedirect: "/?status=successful_login",
             failureRedirect: "/login?status=failed_login"
         }), (req, res) => {});
+
+app.route('/get_info')
+    .get(async (req, res) => {
+        try {
+            const accountType = (await req.user)?.accountType || 0;
+            const type = req.query.type;
+            const value = req.query.value.split('_').filter(substr => substr !== '');
+            switch (type) {
+                case 'service': {
+                    res.json(await services.find({}, { createdBy: 0 }));
+                    break;
+                }
+                case 'user': {
+                    if (accountType >= 1) {
+                        const all_users = await users.find({}, { password: 0 });
+                        res.json(all_users.filter(user => {
+                            return value.filter(substr => (user.firstname + user.lastname + user.email).includes(substr)).length > 0;
+                        }));
+                    } else {
+                        res.status(401);
+                        res.json({fuck: "you"});
+                    }
+                    break;
+                }
+            }
+        } catch (e) {
+            throwError(e, req, res);
+        }
+    })
 //
 
 // NEED BE LOGGED
@@ -254,7 +283,7 @@ app.route('/admin_panel/:id')
             const id = req.params.id;
             switch (type) {
                 case 'service': {
-                    users.updateMany(true,
+                    users.updateMany({},
                         { history: history.map(service => {
                                 if (service.serviceId === id)
                                     service.serviceId = null;
