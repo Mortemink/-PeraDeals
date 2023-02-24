@@ -170,7 +170,11 @@ app.route('/get_info')
                     if (accountType >= 1) {
                         const all_users = await users.find({}, { password: 0 });
                         res.json(all_users.filter(user => {
-                            return value.filter(substr => (user.firstname + user.lastname).includes(substr) || user.email.includes(substr)).length > 0;
+                            return value.filter(substr =>
+                                (user.firstname + user.lastname).includes(substr)
+                                || user.email.includes(substr)
+                                || user._id === substr
+                            ).length > 0;
                         }));
                     } else {
                         res.status(401);
@@ -256,15 +260,19 @@ app.route('/admin_panel/:id')
             const id = req.params.id;
 
             if (id === 'create') {
-                await
-                    new services({
-                        name: req.body.name,
-                        description: req.body.description,
-                        cost: req.body.cost,
-                        createdBy: (await req.user)._id,
-                        createdDate: Date.now()
-                    })
-                        .save();
+                if (req.body.name === '' || req.body.description === '' || isNaN(Number(req.body.cost))) {
+                    return res.redirect('/admin_panel?error=true');
+                } else {
+                    await
+                        new services({
+                            name: req.body.name,
+                            description: req.body.description,
+                            cost: req.body.cost,
+                            createdBy: (await req.user)._id,
+                            createdDate: Date.now()
+                        })
+                            .save();
+                }
             } else {
                 await
                     services.findByIdAndUpdate(id, {
@@ -286,15 +294,15 @@ app.route('/admin_panel/:id')
             const id = req.params.id;
             switch (type) {
                 case 'service': {
-                    users.updateMany({},
-                        { history: history.map(service => {
-                                if (service.serviceId === id)
-                                    service.serviceId = null;
-
-                                return service;
-                            })
-                        });
-                    await services.findOneAndDelete({ _id: id })
+                    // users.updateMany({},
+                    //     { history: history.map(service => {
+                    //             if (service.serviceId === id)
+                    //                 service.serviceId = null;
+                    //
+                    //             return service;
+                    //         })
+                    //     });
+                    services.findOneAndDelete({ _id: id })
                         .then(() => {
                             return res.json({ good: true });
                         })
@@ -307,7 +315,7 @@ app.route('/admin_panel/:id')
                 case 'userhistoryitem': {
                     let history = await users.findOne({_id: id}, { history: 1, _id: 0 });
                     history = history.filter(service => service.serviceId !== req.body.service_id);
-                    await users.findByIdAndUpdate(id, { history: history })
+                    users.findByIdAndUpdate(id, { history: history })
                         .then(() => {
                             return res.json({ good: true });
                         })

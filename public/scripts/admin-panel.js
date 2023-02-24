@@ -62,7 +62,7 @@ async function RenderContent(type, value) {
             StatesObject.contentDiv.innerHTML = "";
 
             data = await data.json();
-            console.log(data)
+
             if (data.length === 0) {
                 StatesObject.contentDiv.innerHTML = "Ничего не найдено."
             } else {
@@ -70,17 +70,19 @@ async function RenderContent(type, value) {
                     switch (type) {
                         case 'service': {
                             StatesObject.contentDiv.innerHTML +=
-                                `<div class="historyItem">
+                                `
+                                <div class="historyItem">
                                     <div class="uslugaName">
-                                        <p>Название: ${item.name}</p>
+                                        <p>Название: ${ item.name }</p>
                                     </div>
                                     <div class="uslugaPrice">
-                                        <p>Цена: ${item.cost}<span> ₽</span></p>
+                                        <p>Цена: ${ item.cost }<span> ₽</span></p>
                                     </div>
                                     <div style="width: 100%; margin-top: 2px; margin-bottom: 2px;"></div> <!-- wrapper -->
                                     <div class="uslugaDescription">Описание: ${item.description}</div>
-                                    <button class="uslugaDelete" onclick="">Удалить услугу</button>
-                                </div>`;
+                                    <button class="uslugaDelete" onclick="DeleteService('${item._id}');">Удалить услугу</button>
+                                </div>
+                                `;
                             break;
                         }
                         case 'user': {
@@ -110,4 +112,71 @@ async function RenderContent(type, value) {
 
             StatesObject.contentDiv.innerHTML = "Произошла какаято ашипка!";
         });
+}
+
+async function ShowUser(_id) {
+    const URL = `/get_info?type=user&value=${_id}`;
+    fetch(URL)
+        .then(async data => {
+            data = await data.json();
+            if (data[0]?._id !== undefined) {
+                const user = data[0];
+                const popup = document.querySelector('.profileBlockPopUp');
+                popup.innerHTML = `<div class="userInfo">
+                                        <p>${ user.firstname }</p>
+                                        <p>${ user.lastname }</p>
+                                    </div>
+                                    <div class="userStatsAdmin">
+                                        <div class="statsNaming">
+                                            <p>Дата регистрации</p>
+                                            <p>Почта</p>
+                                        </div>
+                                        <div class="stats">
+                                            <p>${ user.created.toLocaleDateString('ru-RU') }</p>
+                                            <p>${ user.email }</p>
+                                        </div>
+                                    </div>
+                                    <div class="addRemoveService">
+                                        <form>
+                                            <button><img src="/img/addService.png"></button>
+                                        </form>
+                                        <form>
+                                            <button><img src="/img/removeService.png"></button>
+                                        </form>
+                                    </div>
+                                    <div class="visitHistory">
+                                        <p style="font-size: 22px; margin-bottom: 10px;">
+                                            История посещений
+                                        </p>
+                                    <!--</div>-->`;
+
+                user.history.forEach(item => {
+                    popup.innerHTML += `<div class="historyItem">
+                                            <div class="date">
+                                                <p>${ item.serviceUseDate.toLocaleDateString('ru-RU') }</p>
+                                            </div>
+                                            <div class="uslugaName">
+                                                <p>${ item.serviceName }</p>
+                                            </div>
+                                            <div class="uslugaPrice">
+                                                <p>${ item.servicePrice }<span> ₽</span></p>
+                                            </div>
+                                        </div>`;
+                    popup.innerHTML += `</div>`;
+                })
+            }
+        })
+        .catch(e => {
+            console.error(e);
+        });
+}
+
+async function DeleteService(_id) {
+    const URL = `/admin_panel/${ _id }?type=service&_method=DELETE`;
+    fetch(URL, { method: "POST" })
+        .then(data => {
+            data.json().then((_data) => console.log(_data) );
+            RenderContent('service', null);
+        })
+        .catch(e => console.error(e) );
 }

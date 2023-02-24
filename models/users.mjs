@@ -33,6 +33,7 @@ const _users = new mongoose.Schema({
             serviceId: mongoose.Schema.Types.ObjectId | null,
             serviceName: String,
             serviceDescription: String,
+            servicePrice: Number,
             serviceUseDate: Date
         }
     ],

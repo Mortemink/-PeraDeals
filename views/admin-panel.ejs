@@ -1,12 +1,12 @@
 <%- include('partials/header.ejs') %>
-    <main>
-        <div class="admin">
-            <div class="admin-selectors">
-                <button class="activated-button" id="btn-services">Услуги</button>
-                <button id="btn-users">Пользователи</button>
-            </div>
-            <div class="admin-actions ">
-                <form action="/admin_panel/create" method="POST">
+<main>
+    <div class="admin">
+        <div class="admin-selectors">
+            <button class="activated-button" id="btn-services">Услуги</button>
+            <button id="btn-users">Пользователи</button>
+        </div>
+        <div class="admin-actions ">
+            <form action="/admin_panel/create" method="POST">
                 <div class="create-service">
                     <h2 style="width: 100%">Создание услуги</h2>
                     <div style="border-top: 1px solid #9db800; padding-top: 8px">
@@ -14,7 +14,8 @@
                         <input class="input-service-name" id="serviceName" type="text"
                                name="name" placeholder="Введите название...">
                         <p>Цена</p>
-                        <input type="number" min="0" value="0" name="cost" class="input-service-price" id="servicePrice">
+                        <input type="number" min="0" name="cost" class="input-service-price"
+                               id="servicePrice">
                     </div>
                     <div style="border-top: 1px solid #9db800; padding-top: 8px">
                         <p>Описание</p>
@@ -24,56 +25,20 @@
                     <div style="width: 100%;"></div> <!-- wrapper -->
                     <button>Создать</button>
                 </div>
-                </form>
-                <div class="find-users disabled">
-                    <p>Поиск пользователя</p>
-                    <input class="input-service-name" id="searchField" type="text" placeholder="Введите имя и фамилию или email">
-                </div>
-            </div>
-            <div class="admin-content" id="adminContent">
-
-            </div>
-            <div class="profileBlockPopUp disabled">
-                <div class="profileIMG">
-                    <img>
-                </div>
-                <div class="userInfo">
-                    <p><%= user.firstname %></p>
-                    <p><%= user.lastname %></p>
-                </div>
-                <div class="userStatsAdmin">
-                    <div class="statsNaming">
-                        <p>Дата регистрации</p>
-                        <p>Почта</p>
-                    </div>
-                    <div class="stats">
-                        <p><%= user.created.toLocaleDateString('ru-RU') %></p>
-                        <p><%= user.email %></p>
-                    </div>
-                </div>
-                <div class="addRemoveService">
-                    <form><button><img src="/img/addService.png"></button></form>
-                    <form><button><img src="/img/removeService.png"></button></form>
-                </div>
-                <div class="visitHistory">
-                    <p style="font-size: 22px; margin-bottom: 10px;">
-                        История посещений
-                    </p>
-                    <div class="historyItem">
-                        <div class="date">
-                            <p>20.10.2023</p>
-                        </div>
-                        <div class="uslugaName">
-                            <p>название услугу будет написано в этом месте</p>
-                        </div>
-                        <div class="uslugaPrice">
-                            <p>30000<span> ₽</span></p>
-                        </div>
-                    </div>
-                  
-                    </div>
-                </div>
+            </form>
+            <div class="find-users disabled">
+                <p>Поиск пользователя</p>
+                <input class="input-service-name" id="searchField" type="text"
+                       placeholder="Введите имя и фамилию или email">
             </div>
         </div>
-    </main>
-    <script src="/scripts/admin-panel.js"></script>
+        <div class="admin-content" id="adminContent">
+
+        </div>
+        <div class="profileBlockPopUp disabled">
+
+        </div>
+    </div>
+    </div>
+</main>
+<script src="/scripts/admin-panel.js"></script>
