@@ -1,7 +1,7 @@
 <%- include('partials/header.ejs') %>
     <div class="mainBlock">
         <div class="itemlist">
-            <% services.forEach(service => { %>
+            <% services.forEach((service, index) => { %>
             <div class="serviceItem">
                 <div class="serviceInfo">
                     <p id="serviceName"><%= service.name %></p>
@@ -9,7 +9,7 @@
                     <p class="servicePrice"><%= service.cost %> <span style="color: white;">₽</span></p>
                 </div>
                 
-                <img src="/img/service1.png" alt="">
+                <img src="/img/service<%= (index+1 % 6) %>.png" alt="">
             </div>
             <% }); %>
         </div>
