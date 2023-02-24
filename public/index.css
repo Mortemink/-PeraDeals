@@ -242,14 +242,17 @@ header {
     font-size: 35px;
 }
 
-.moreServices {
+.services a{
     position: absolute;
+    right: 400px;
+}
+
+.moreServices {
     border: 2px solid #9db800;
     background-color: #9db800;
     font-size: 30px;
     font-family: BloggerSans;
     padding: 8px 18px;
-    right: 400px;
     color: white;
     transition: 0.2s;
 }
