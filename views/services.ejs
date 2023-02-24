@@ -1,6 +1,15 @@
 <%- include('partials/header.ejs') %>
     <div class="mainBlock">
         <div class="itemlist">
+            <%
+            const ImgCount = 6;
+            const ArraySet = new Set();
+            while (ArraySet.size !== ImgCount) {
+                ArraySet.add((Math.random() * (ImgCount-1) + 1).toFixed());
+            }
+            const Arr = Array.from(ArraySet);
+            console.log('\n')
+            %>
             <% services.forEach((service, index) => { %>
             <div class="serviceItem">
                 <div class="serviceInfo">
@@ -9,7 +18,7 @@
                     <p class="servicePrice"><%= service.cost %> <span style="color: white;">₽</span></p>
                 </div>
                 
-                <img src="/img/BGimg/service<%= (index+1 % 6) %>.png" alt="">
+                <img src="/img/BGimg/service<%= Arr[index % ImgCount] %>.png" alt="">
             </div>
             <% }); %>
         </div>
