@@ -12,13 +12,13 @@ button {
 }
 
 
-a{
+a {
     cursor: pointer;
 }
 
 A:link,
 A:visited,
-A:active{
+A:active {
     text-decoration: none;
     color: white;
 }
@@ -53,7 +53,7 @@ body {
 
 header {
     position: relative;
-    width: 100%;
+    width: 100vw;
     background-color: #19191a;
     height: 110px;
     display: flex;
@@ -242,7 +242,7 @@ header {
     font-size: 35px;
 }
 
-.services a{
+.services a {
     position: absolute;
     right: 400px;
 }
@@ -600,15 +600,15 @@ footer {
 
 /*profile css*/
 
-.exitBT{
+.exitBT {
     top: 15px;
     right: 15px;
     position: absolute;
     z-index: 23;
-    
+
 }
 
-.exitBT button{
+.exitBT button {
     border: none;
     background-color: initial;
     font-size: 16px;
@@ -618,7 +618,7 @@ footer {
 
 }
 
-.exitBT button:hover{
+.exitBT button:hover {
     color: #9db800;
     font-weight: 700;
 }
@@ -650,11 +650,11 @@ footer {
     width: 100%;
     height: 120px;
     display: flex;
-    align-items:  center;
+    align-items: center;
     justify-content: center;
 }
 
-.profileIMG img{
+.profileIMG img {
     height: 100px;
     width: 100px;
     background-color: #9db800;
@@ -670,14 +670,14 @@ footer {
     justify-content: center;
 }
 
-.userInfo p{
+.userInfo p {
     font-size: 22px;
     font-family: BloggerSans;
     margin-left: 2px;
-    margin-right: 2px;  
+    margin-right: 2px;
 }
 
-.infoChange{
+.infoChange {
     font-size: 13px;
     font-family: BloggerSans;
     width: 100%;
@@ -685,7 +685,7 @@ footer {
     justify-content: flex-end;
 }
 
-.infoChange form button{
+.infoChange form button {
     background-color: initial;
     border: none;
     color: #5f5f5f;
@@ -693,11 +693,11 @@ footer {
 }
 
 
-.infoChange form button:hover{
+.infoChange form button:hover {
     color: #9db800;
 }
 
-.userStats{
+.userStats {
     width: 100%;
     height: 80px;
     display: flex;
@@ -705,20 +705,20 @@ footer {
     justify-content: space-between;
 }
 
-.userStats p{
+.userStats p {
     font-size: 18px;
     font-family: BloggerSans;
     margin-top: 6px;
 }
 
-.statsNaming{
+.statsNaming {
     width: 50%;
     height: 80px;
     display: flex;
     flex-direction: column;
 }
 
-.stats{
+.stats {
     width: 50%;
     height: 80px;
     display: flex;
@@ -726,7 +726,7 @@ footer {
     text-align: end;
 }
 
-.visitHistory{
+.visitHistory {
     margin-top: 15px;
     width: 100%;
     height: auto;
@@ -783,7 +783,7 @@ footer {
 }
 
 .historyItem div {
-     overflow: hidden;
+    overflow: hidden;
 }
 
 /* admin css */
@@ -798,7 +798,7 @@ footer {
     align-items: center;
 }
 
-.admin .admin-selectors ,
+.admin .admin-selectors,
 .admin .admin-actions,
 .admin .admin-content {
     min-width: 800px;
@@ -808,8 +808,8 @@ footer {
     position: relative;
 }
 
-.admin-actions{
-height: auto;
+.admin-actions {
+    height: auto;
 }
 
 .admin-selectors {
@@ -863,9 +863,6 @@ height: auto;
     text-align: center;
 }
 
-.input-service-name,
-.input-service-description {
-}
 
 .input-service-name {
     width: 256px;
@@ -893,19 +890,19 @@ height: auto;
     color: white;
     font-family: BloggerSans;
     font-size: 14pt;
-    
+
 }
 
 .find-users p,
 .find-users input[type="text"],
-.find-users input[type="number"]{
+.find-users input[type="number"] {
     margin: 2px 4px;
     font-family: BloggerSans;
     font-size: 14pt;
     width: 300px;
 }
 
-.find-users{
+.find-users {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -915,7 +912,7 @@ height: auto;
     margin-top: 5px;
 }
 
-.userItem{
+.userItem {
     position: relative;
     display: flex;
     align-items: center;
@@ -930,25 +927,25 @@ height: auto;
     cursor: pointer;
 }
 
-.userMail{
+.userMail {
     margin-left: 10px;
 }
 
-.userName{
+.userName {
     padding-right: 10px;
     border-right: 1px solid #9db800;
     margin-left: 5px;
 }
 
-.userItem img{
+.userItem img {
     height: 18px;
-    width: 18px;  
-    position: absolute; 
+    width: 18px;
+    position: absolute;
     right: 3px;
 
 }
 
-.userStatsAdmin{
+.userStatsAdmin {
     width: 100%;
     height: 50px;
     display: flex;
@@ -956,14 +953,14 @@ height: auto;
     justify-content: space-between;
 }
 
-.userStatsAdmin p{
+.userStatsAdmin p {
     font-size: 18px;
     font-family: BloggerSans;
     margin-top: 6px;
 }
 
 
-.addRemoveService{
+.addRemoveService {
     left: 200px;
     top: 235px;
     position: absolute;
@@ -976,7 +973,7 @@ height: auto;
 
 .addRemoveService form,
 .addRemoveService form button,
-.addRemoveService form button img{
+.addRemoveService form button img {
     height: 20px;
     width: 20px;
     border: none;
@@ -996,7 +993,7 @@ height: auto;
 
 /*services css*/
 
-.mainBlock{
+.mainBlock {
     position: relative;
     width: 100%;
     min-height: 880px;
@@ -1004,7 +1001,7 @@ height: auto;
     justify-content: center;
 }
 
-.itemlist{
+.itemlist {
     position: relative;
     width: 82%;
     height: auto;
@@ -1014,7 +1011,7 @@ height: auto;
     justify-content: flex-start;
 }
 
-.serviceItem{
+.serviceItem {
     position: relative;
     width: 376px;
     height: 450px;
@@ -1026,13 +1023,13 @@ height: auto;
     text-align: center;
 }
 
-.serviceItem img{
+.serviceItem img {
     position: absolute;
     width: 376px;
     height: 450px;
 }
 
-.serviceInfo{
+.serviceInfo {
     position: absolute;
     z-index: 232;
     color: white;
@@ -1050,15 +1047,50 @@ height: auto;
     top: 100px;
 }
 
-#serviceName{
+#serviceName {
     font-size: 30px;
     margin-bottom: 10px;
     font-weight: 600;
 }
 
-.servicePrice{
+.servicePrice {
     position: absolute;
     bottom: 0;
     color: #9db800;
     font-size: 22px;
+}
+
+/* contacts page */
+
+.main-div {
+    position: relative;
+    background-color: #ffffff;
+    left: 20%;
+    width: 60%;
+    height: auto;
+}
+
+.main-info {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    padding: 10px 0 10px 0;
+    border: 2px solid #9db800;
+    font-size: 20px;
+    font-family: Raleway;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-info p {
+    margin: 6px;
+}
+
+.main-info div {
+    margin: 0 40px 0 40px;
+}
+
+.map {
+    width: auto;
+    height: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
