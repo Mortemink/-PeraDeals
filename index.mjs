@@ -4,12 +4,13 @@
 
 import express from "express";
 import mongoose from "mongoose";
-import path from "path";
-import {fileURLToPath} from 'url';
+import path from "node:path";
+import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 import passport from "passport";
-import {users} from "./models/users.mjs";
-import {services} from "./models/services.mjs";
-import {forms} from "./models/forms.mjs";
+import { users } from "./models/users.mjs";
+import { services } from "./models/services.mjs";
+import { forms } from "./models/forms.mjs";
 import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 import {initialize} from "./passport-config.mjs";
@@ -52,8 +53,17 @@ app.use(methodOverride('_method'));
 
 const PORT = process.env.PORT || 3000;
 
-function start() {
+async function start() {
     try {
+
+        // Запуск службы mongodb если она не запущена
+        if (process.platform === 'win32') {
+            try {
+                await execSync('net start mongodb', { stdio: 'pipe' })
+            } catch {
+            }
+        }
+
         const DB = `mongodb://127.0.0.1:27017/STO`;
         mongoose.set('strictQuery', false);
         mongoose.connect(DB, {
@@ -101,6 +111,24 @@ app.route('/')
             throwError(e, req, res);
         }
     });
+
+app.get('/about_us', async (req, res) => {
+    res.render('about-us', {
+        user: await getUser(req, res)
+    });
+});
+
+app.get('/our_team', async (req, res) => {
+    res.render('our_team', {
+        user: await getUser(req, res)
+    });
+});
+
+app.get('/contacts', async (req, res) => {
+    res.render('contacts', {
+        user: await getUser(req, res)
+    });
+});
 
 app.route('/services')
     .get(async (req, res) => {
