@@ -30,7 +30,7 @@ const _users = new mongoose.Schema({
     },
     history: [
         {
-            serviceId: mongoose.Schema.Types.ObjectId | null,
+            serviceId: mongoose.Schema.Types.ObjectId,
             serviceName: String,
             serviceDescription: String,
             servicePrice: Number,

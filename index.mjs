@@ -70,16 +70,12 @@ async function start() {
             autoIndex: false,
             useNewUrlParser: true,
             useUnifiedTopology: true
-        }, (e) => {
-            if (e)
-                throw new Error(e ?? null);
-            else {
-                console.log('Сервер успешно подключился к базе данных!');
-                app.listen(PORT, () => {
-                    console.log(`Ссылка на сайт: http://localhost:${PORT}`);
-                });
-            }
-        })
+        }).then(() => {
+            console.log('Сервер успешно подключился к базе данных!');
+            app.listen(PORT, () => {
+                console.log(`Ссылка на сайт: http://localhost:${PORT}`);
+            });
+        });
     } catch (e) {
         throw new Error(e);
     }
